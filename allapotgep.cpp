@@ -30,7 +30,7 @@ Configuration::Configuration(const char *filename){
     }
     //Getting the number of states
     //
-    char numberOfStates[2];
+    char numberOfStates[3];
     file.getline(numberOfStates, 2);
     size = atoi(numberOfStates);
 
@@ -40,12 +40,12 @@ Configuration::Configuration(const char *filename){
     for (int i = 0; i < size; ++i) {
         stateNameTable[i] = new char[21];  // 20 characters + 1 for '\0'
     }
-    stateValidityTable = new bool[size];
 
+    stateValidityTable = new bool[size];
     for (int i = 0; i < size; i++) {
         stateValidityTable[i] = ((char)file.get() == 'I' ? true : false);
         file.get();
-        file.getline(stateNameTable[i], 21);
+        file.getline(stateNameTable[i], 20);
     }
 
     //Filling the stateTable
@@ -84,11 +84,11 @@ char* Configuration::NextState(const char* currentState, Bazis inputBase) {
     int stateIndex = this->StateNameToIndex(currentState);
     char baseToSearch = cast(inputBase);
     for (int i = 0; i < size; i++) {
-        if(strchr(stateTable[stateIndex][i],baseToSearch) != NULL) {
+        if(strchr(stateTable[stateIndex][i],baseToSearch) != nullptr) {
             return stateNameTable[i];
         }
     }
-    return NULL;
+    return nullptr;
 }
 Configuration& Configuration::operator=(const Configuration& rhs) {
     if (this != &rhs) {

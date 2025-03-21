@@ -48,7 +48,7 @@ public:
   stateValidityTable = nullptr;
   stateTable = nullptr;
  }
- Configuration(const char* filename);
+ explicit Configuration(const char* filename);
 
  char* GetBaseState() { return stateNameTable[0]; }
  bool IsStateValid(const char* stateName);
