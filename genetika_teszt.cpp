@@ -38,7 +38,7 @@ int main() {
     /// Azt vizsgálja, hogy be tudja-e olvasni a konfigurációs fájlt
         TEST(ParosTrimin, fajbolkonfig1) {
             Allapotgep gep;
-            EXPECT_NO_THROW(gep.konfigural("paros.txt"));
+            ASSERT_NO_THROW(gep.konfigural("paros.txt"));
             EXPECT_STREQ("ParosTimin", gep.aktualisallapot());
         } END
     #endif // ELKESZULT > 1
@@ -47,7 +47,7 @@ int main() {
     /// Kipróbálja az egyik pédakonfigot
         TEST(ParosTrimin, fajbolkonfig1) {
             Allapotgep gep;
-            EXPECT_NO_THROW(gep.konfigural("paros.txt"));
+            ASSERT_NO_THROW(gep.konfigural("paros.txt"));
             EXPECT_STREQ("ParosTimin", gep.aktualisallapot());
             Bazis demo[] = {Timin, Citozin, Guanin, Adenin, Timin};
             EXPECT_EQ(true, gep.feldolgoz(demo, 5));
@@ -62,7 +62,7 @@ int main() {
     /// Kipróbálja az másik pédakonfigot
         TEST(Implikacio: AA->CC, fajbolkonfig2) {
             Allapotgep gep;
-            EXPECT_NO_THROW(gep.konfigural("implikacio.txt"));
+            ASSERT_NO_THROW(gep.konfigural("implikacio.txt"));
             EXPECT_STREQ("Alap", gep.aktualisallapot());
             Bazis demo[] = {Adenin, Adenin, Timin, Citozin, Adenin, Citozin, Citozin, Guanin};
             EXPECT_EQ(true, gep.feldolgoz(demo, 8));
@@ -79,6 +79,8 @@ int main() {
     #endif
 
     /// Itt a vége
+    if (ELKESZULT < 3)
+      ADD_FAILURE() << "\nNem futott minden teszteset!" << std::endl;
 
     GTEND(std::cerr); // Csak C(J)PORTA működéséhez kell
     return 0;
